@@ -3,64 +3,60 @@
 
 ## Run 1 — Baseline
 
-**Design:** Initial Sarvam-powered research agent using a
-single generation call and a system prompt prioritizing
-official disclosures.
+**Design:** Sarvam-powered research agent using a system prompt
+to prioritize official disclosures and produce a research brief.
 
-**Result:** Successfully loaded eight documents and generated
-a Markdown research brief.
+**Result:** Successfully processed all eight documents.
 
 **Issues identified:**
-- The promoter-pledging trend was incorrectly described as
-  increasing from 11.5% to 4.1%, although this is a decrease.
-- A penalty involving a similarly named local cable-TV operator
-  was incorrectly presented as a possible risk for the listed
-  manufacturer.
-- The revenue discrepancy was identified but needed clearer
-  treatment as an unresolved conflict.
+- Detected conflicting revenue figures but needed stronger
+  handling of source reliability.
+- Incorrectly described promoter pledging as increasing from
+  11.5% to 4.1%, although the figures show a decrease.
+- Incorrectly associated a penalty involving a similarly named
+  local cable-TV operator with the listed company.
 
 ## Run 2 — Prompt Improvements
 
-**Design change:** Added explicit rules for numerical direction,
-company-identity checks, source attribution, and prompt-injection
-resistance.
+**Design change:** Added explicit instructions for checking
+numerical directions, distinguishing company identities,
+attributing claims, and resisting embedded document instructions.
 
-**Result:** The agent handled the unrelated company's identity
-more cautiously, but still incorrectly described the promoter-
-pledging decrease as an increase.
+**Result:** The report handled the unrelated-company issue more
+cautiously, but still described promoter pledging as increasing
+from 11.5% to 4.1%.
 
-**Conclusion:** Prompt instructions improved entity handling but
-did not reliably prevent numerical-direction errors.
+**Learning:** Prompt instructions alone did not reliably prevent
+numerical-direction errors.
 
-## Run 3 — Draft and Review Pipeline
+## Run 3 — Separate Review Pass
 
-**Design change:** Added a separate Sarvam review pass and
-programmatic validation for the known pledging-direction error.
+**Design change:** Added a second Sarvam call to review the
+draft against the source documents and a programmatic check
+for the known promoter-pledging direction error.
 
 **Result:** The reviewed report included a dedicated revenue
-conflict section, identified the preferred primary disclosure,
-and did not attribute the local operator's penalty to the listed
-manufacturer. The reversed pledging trend no longer appeared,
-but the trend was omitted rather than explicitly explained.
+conflict section, preferred the company IR press release as the
+primary source, and did not attribute the local operator's
+penalty to the listed manufacturer. The latest generated report
+omitted the promoter-pledging trend rather than fully explaining
+it.
 
-**Remaining limitations:** The report still needed to include
-the source-supported pledging trend and correct a reference to
-the revenue discrepancy as an "official filing" rather than
-the company IR press release.
+**Remaining limitations:** A second review pass does not
+guarantee factual accuracy. The report still required a manual
+editorial correction to include the complete pledging trend.
 
-## Final refinement
+## Final Editorial Correction
 
-Updated the final brief to state the three reported pledging
-figures and correct the description of the revenue source.
+The final research brief was manually edited to include the
+source-supported promoter-pledging figures of 11.5% in June
+2025, 6.0% in March 2026, and 4.1% in June 2026, and to clarify
+that the revenue discrepancy refers to the company IR press
+release versus a news article.
 
-This was a manual editorial correction following Run 3.
-The original generated draft and reviewed output are preserved
-in the output directory for comparison.
+## Overall Conclusion
 
-## Overall learning
-
-The experiments demonstrate that an LLM can identify material
-financial conflicts but may make basic numerical-direction
-mistakes. A separate review pass improves the result, but
-source attribution, deterministic checks, and human review
-remain necessary.
+The experiments demonstrate that an LLM can identify important
+financial information and source conflicts but may reverse
+numerical trends or omit relevant evidence. Source attribution,
+deterministic validation, and human review remain important.
